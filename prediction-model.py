@@ -41,6 +41,7 @@ df = pd.read_excel('VesselData.xlsx')
 
 # Check read in was correct
 #df.head
+# ADD: data cleaning
 
 # Extraxt subset of interest
 df = df[['discharge1','load1','discharge2','load2','discharge3','load3',
@@ -125,10 +126,6 @@ predicted_transships=lstm_model.predict(X_test)
 predicted_transships=scaler.inverse_transform(predicted_stock_price)
 
 # Check accuracy of model, split around 80:20 for train:test
-train_size=len(df)*0.8
-valid_size=len(df)*0.2
-train_data=data[:train_size]
-valid_data=data[valid_data:]
-valid_data['Predictions']=predicted_stock_price
+valid_data['Predictions']=predicted_transships
 plt.plot(train_data["Transships"])
 plt.plot(valid_data[['Transships',"Predictions"]])
